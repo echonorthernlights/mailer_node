@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import spinner from "../assets/img/spinner.gif";
+import spinner from "../public/assets/img/spinner.gif";
 
 const Form = () => {
   const [mailObject, setMailOject] = useState({
