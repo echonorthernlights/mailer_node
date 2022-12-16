@@ -52,7 +52,8 @@ const Form = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     //test form data (email and content are required, subject not)
-    const mailRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+.[A-Za-z]+$/;
+    const mailRegex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!mailRegex.test(mailObject.email)) {
       toast.warn("Please provid a valid email !!", {
         position: "top-right",
