@@ -16,14 +16,14 @@ const sendMail = async (req, res) => {
       },
     });
 
-    let details = {
+    let mailDetails = {
       from: `"Anas test mail" <${process.env.EMAIL_SENDER}>`, // sender address
       to: email,
       subject: subject ? subject : "No subject",
       text: content,
     };
 
-    const response = await transporter.sendMail(details);
+    const response = await transporter.sendMail(mailDetails);
 
     console.log("Message sent");
     console.log(response);

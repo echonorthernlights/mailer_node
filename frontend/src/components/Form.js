@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import spinner from "../assets/img/spinner.gif";
 
 const Form = () => {
   const [mailObject, setMailOject] = useState({
@@ -88,6 +89,7 @@ const Form = () => {
               value={mailObject.email}
               onChange={onChange}
             />
+            <small>* Required</small>
           </div>
           <div className="form-group mb-3">
             <label htmlFor="subject">Subject : </label>
@@ -111,11 +113,17 @@ const Form = () => {
               name="content"
               value={mailObject.content}
               onChange={onChange}
+              style={{ resize: "none" }}
             />
+            <small>* Required</small>
           </div>
           <div className="form-group">
             <button type="submit" className="btn btn-primary w-100">
-              {loader ? "Sending..." : "Send"}
+              {loader ? (
+                <img src={spinner} style={{ height: "20px" }} />
+              ) : (
+                "Send"
+              )}
             </button>
           </div>
         </form>
