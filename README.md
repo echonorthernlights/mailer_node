@@ -1,8 +1,8 @@
-#Mailer
+Mailer
 
-###This web app allows you to send emails (gmail, outlook)
+This web app allows you to send emails (gmail, outlook)
 
-###To install packages
+To install packages
 
 - run 'npm install' in root directory
 - run 'npm install' in frontend directory
