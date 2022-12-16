@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import spinner from "../public/assets/img/spinner.gif";
+import logo from "../public/assets/img/logo.svg";
 
 const Form = () => {
   const [mailObject, setMailOject] = useState({
@@ -15,7 +16,7 @@ const Form = () => {
   const onChange = (e) => {
     setMailOject({ ...mailObject, [e.target.name]: e.target.value });
   };
-
+  // function to POST email object (email, subject, content ) to backend server
   const sendMail = async () => {
     setLoader(true);
     const response = await fetch(`/api/mail/send`, {
@@ -25,9 +26,10 @@ const Form = () => {
       },
       body: JSON.stringify(mailObject),
     });
-    const { msg, error } = await response.json();
-    if (msg) {
-      toast.success(msg, {
+    const { success, error } = await response.json();
+    // check server response for success or error
+    if (success) {
+      toast.success(success, {
         position: "top-right",
         autoClose: 3000,
         theme: "light",
@@ -41,6 +43,7 @@ const Form = () => {
         hideProgressBar: true,
       });
     }
+    // reset the state
     setMailOject({
       email: "",
       subject: "",
@@ -49,9 +52,10 @@ const Form = () => {
     setLoader(false);
   };
 
+  // onSubmit
   const onSubmit = (e) => {
     e.preventDefault();
-    //test form data (email and content are required, subject not)
+    //test form data (email(validate email regex) and content are required, subject not('No subject' by default ))
     const mailRegex =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!mailRegex.test(mailObject.email)) {
@@ -69,14 +73,27 @@ const Form = () => {
         hideProgressBar: true,
       });
     } else {
+      // Invoke sendMail function
       sendMail();
     }
   };
   return (
-    <div className="form-container">
+    <div className="form-container mt-2">
       <div className="form-body px-4">
-        <h3 className="text-center">MAILER</h3>
-        <h6 className="text-center">Send your mail with ease</h6>
+        <div className="container-fluid">
+          <div className="row mb-4">
+            <div className="col">
+              <img className="logo" src={logo} alt="logo goes here" />
+            </div>
+            <div className="col col-custom ">
+              <div className="heading">
+                <h3>MAILER</h3>
+                <h6>Send your mail with ease</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <ToastContainer />
         <form onSubmit={onSubmit}>
           <div className="form-group mb-3">
@@ -85,12 +102,12 @@ const Form = () => {
               type="text"
               className="form-control"
               id="email"
-              placeholder="Enter email"
+              placeholder="Enter recipient email"
               name="email"
               value={mailObject.email}
               onChange={onChange}
             />
-            <small>* Required</small>
+            <sub>* Required</sub>
           </div>
           <div className="form-group mb-3">
             <label htmlFor="subject">Subject : </label>
@@ -98,7 +115,7 @@ const Form = () => {
               type="text"
               className="form-control"
               id="subject"
-              placeholder="Enter your sbject"
+              placeholder="Enter your subject"
               name="subject"
               value={mailObject.subject}
               onChange={onChange}
@@ -116,10 +133,10 @@ const Form = () => {
               onChange={onChange}
               style={{ resize: "none" }}
             />
-            <small>* Required</small>
+            <sub>* Required</sub>
           </div>
           <div className="form-group">
-            <button type="submit" className="btn btn-primary w-100">
+            <button type="submit" className="btn btn-primary w-100 mb-4">
               {loader ? (
                 <img src={spinner} style={{ height: "20px" }} />
               ) : (

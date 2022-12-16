@@ -2,7 +2,10 @@
 body {
   font-family: "Poppins", sans-serif;
   background: #fdfdff2a;
-  padding-top: 80px;
+}
+.logo {
+  height: 190px;
+  padding-top: 10px;
 }
 .form-body {
   width: calc(100% - 30px);
@@ -10,5 +13,33 @@ body {
   margin: auto;
   background: whitesmoke;
   border-radius: 10px;
-  padding: 50px 0;
+}
+.col-custom {
+  position: relative;
+}
+
+@media (min-width: 500px) {
+  .heading {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 500px) {
+  .heading {
+    width: 100%;
+    text-align: center;
+  }
+  .col-custom {
+    width: 100%;
+    display: block;
+    flex: inherit;
+  }
+  .logo {
+    display: block;
+    margin: auto;
+    margin-bottom: 15px;
+  }
 }
